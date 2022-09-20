@@ -2,9 +2,9 @@ package jogadores;
 
 import jogo.Tabuleiro;
 
-public class jogadorCavaleiro extends Jogador{
+public class JogadorCavaleiro extends Jogador{
 
-    public jogadorCavaleiro(String nome) {
+    public JogadorCavaleiro(String nome) {
         super(nome);
     }
 
