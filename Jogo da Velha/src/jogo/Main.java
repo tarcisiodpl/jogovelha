@@ -17,7 +17,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-                
+        
+        System.out.println("Ola mundo");
+
         Jogador[] jogadores = new Jogador[3];
         jogadores[0] = new JogadorLinhaColuna("LinhaColuna");
         jogadores[1] = new JogadorAleatorio("Aleatório");
