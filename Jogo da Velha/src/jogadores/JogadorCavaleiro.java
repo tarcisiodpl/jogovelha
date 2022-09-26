@@ -15,17 +15,18 @@ public JogadorCavaleiro(String nome) {
 public int[] jogar(int[][] matrizTabuleiro) {
    int[] jogadaPrincipal = new int[2];
    jogadaPrincipal[0] = -1; jogadaPrincipal[1] = -1;
-    int jogadaperfeita = -1000;
+    int jogadaFinal = -1000;
+
    for (int i = 0; i < matrizTabuleiro.length; i++){
-       for (int j = 0; j < matrizTabuleiro.length; j++){
+        for (int j = 0; j < matrizTabuleiro.length; j++){
             if (matrizTabuleiro[i][j] == -1) {
                 matrizTabuleiro[i][j] = this.getSimbolo();
-                int jogada = jogadorMiniMax(matrizTabuleiro, 0, false, this.getSimbolo());
+                int jogada = miniMax(matrizTabuleiro, 0, false, this.getSimbolo());
                 matrizTabuleiro[i][j] = -1;
-                    if(jogada>jogadaperfeita){
+                    if(jogada>jogadaFinal){
                     jogadaPrincipal[0] = i;
                     jogadaPrincipal[1] = j;
-                    jogadaperfeita= jogada;
+                    jogadaFinal= jogada;
                 }     
             }
         }
@@ -33,7 +34,7 @@ public int[] jogar(int[][] matrizTabuleiro) {
     return jogadaPrincipal;
 }
 
-public static int jogadorMiniMax(int matrizTabuleiro[][], int profundidade, Boolean maximo, int simbolo){
+public static int miniMax(int matrizTabuleiro[][], int profundidade, Boolean max, int simbolo){
     if (matrizTabuleiro.length > 3 && profundidade >0) {
         return 0;
     }
@@ -41,16 +42,16 @@ public static int jogadorMiniMax(int matrizTabuleiro[][], int profundidade, Bool
     if (valor == 10 || valor == -10) {
         return valor;
     }
-    if (existeMove(matrizTabuleiro) == false) {
+    if (mover(matrizTabuleiro) == false) {
         return 0;
     }
-    if (maximo == true) {
+    if (max == true) {
         int best = -1000;
         for (int i = 0; i < matrizTabuleiro.length; i++){
             for (int j = 0; j < matrizTabuleiro.length; j++){
                 if (matrizTabuleiro[i][j] == -1) {
                     matrizTabuleiro[i][j] = simbolo;
-                    best = Math.max(best, jogadorMiniMax(matrizTabuleiro, profundidade + 1, !maximo, simbolo));
+                    best = Math.max(best, miniMax(matrizTabuleiro, profundidade + 1, !max, simbolo));
                     matrizTabuleiro[i][j] = -1;
                 }
             }
@@ -58,17 +59,17 @@ public static int jogadorMiniMax(int matrizTabuleiro[][], int profundidade, Bool
         return best;
     }
     else {
-        int bestmove = 1000;
+        int melhorMovimento = 1000;
         for (int i = 0; i < matrizTabuleiro.length; i++){
             for (int j = 0; j < matrizTabuleiro.length; j++){
                 if (matrizTabuleiro[i][j] == -1) {
                     matrizTabuleiro[i][j] = -1*(simbolo - 1);
-                    bestmove = Math.min(bestmove, jogadorMiniMax(matrizTabuleiro, profundidade + 1, !maximo, simbolo));
+                    melhorMovimento = Math.min(melhorMovimento, miniMax(matrizTabuleiro, profundidade + 1, !max, simbolo));
                     matrizTabuleiro[i][j] = -1;
                 }
             }
         }
-        return bestmove;
+        return melhorMovimento;
     }
 }
 
@@ -145,49 +146,13 @@ public static int verifyTabu(int matrizTabuleiro[][], int simbolo){
     return 0;
 }
 
-public static Boolean existeMove(int matrizTabuleiro[][]) {
+public static Boolean mover(int matrizTabuleiro[][]) {
     for (int i = 0; i < matrizTabuleiro.length; i++)
         for (int j = 0; j < matrizTabuleiro.length; j++)
             if (matrizTabuleiro[i][j] == -1) {
                 return true;
             }
     return false;
-}
-
-public int alphabeta(JogadorCavaleiro g, int alpha, int beta, char vez ) {
-    if(vez=='0'){
-        char ganhador = 0;
-        if(ganhador == 'x')
-            return 1;
-        else if(ganhador == 'o'){
-            return -1;
-        }else{
-            return 0;
-        }
-    }
-    if(vez == 'x'){
-        int v = Integer.MIN_VALUE;
-        for(JogadorCavaleiro next : g.prox()){
-            v = Integer.max(v, alphabeta(next, alpha, beta, 'o'));
-            alpha = Integer.max(alpha, v);
-            if(beta <= alpha){
-                break;
-            }
-        }
-        return v;
-    }
-    else{
-        int v = Integer.MAX_VALUE;
-
-        for(JogadorCavaleiro next : g.prox() ){
-            v = Integer.min(v, alphabeta(next, alpha, beta, 'x'));
-            beta = Integer.min(beta, v);
-            if(beta <= alpha){
-                break;
-            }
-        }
-        return v;
-    }
 }
 
 List<JogadorCavaleiro> prox() { 
