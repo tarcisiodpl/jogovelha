@@ -17,13 +17,11 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        System.out.println("Ola mundo");
 
         Jogador[] jogadores = new Jogador[3];
         jogadores[0] = new JogadorLinhaColuna("LinhaColuna");
         jogadores[1] = new JogadorAleatorio("Aleatório");
-        jogadores[2] = new Manual("Eu");
+        jogadores[2] = new JogadorCavaleiro("MAX");
         
         Campeonato campeonato = new Campeonato(jogadores, 3);
         Participacao[] p = campeonato.runPontosCorridos();
