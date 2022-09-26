@@ -45,17 +45,17 @@ public static int miniMax(int matrizTabuleiro[][], int profundidade, Boolean max
         return 0;
     }
     if (max == true) {
-        int best = -1000;
+        int melhor = -1000;
         for (int i = 0; i < matrizTabuleiro.length; i++){
             for (int j = 0; j < matrizTabuleiro.length; j++){
                 if (matrizTabuleiro[i][j] == -1) {
                     matrizTabuleiro[i][j] = simbolo;
-                    best = Math.max(best, miniMax(matrizTabuleiro, profundidade + 1, !max, simbolo));
+                    melhor = Math.max(melhor, miniMax(matrizTabuleiro, profundidade + 1, !max, simbolo));
                     matrizTabuleiro[i][j] = -1;
                 }
             }
         }
-        return best;
+        return melhor;
     }
     else {
         int melhorMovimento = 1000;
@@ -154,7 +154,7 @@ public static Boolean mover(int matrizTabuleiro[][]) {
     return false;
 }
 
-List<JogadorCavaleiro> prox() { 
+List<JogadorCavaleiro> proximo() { 
     List<JogadorCavaleiro> resp = null;
     return  resp;
 }
