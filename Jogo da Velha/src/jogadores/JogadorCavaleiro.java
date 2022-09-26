@@ -3,7 +3,6 @@ package jogadores;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
-
 import jogo.Tabuleiro;
 
 public class JogadorCavaleiro extends Jogador{
