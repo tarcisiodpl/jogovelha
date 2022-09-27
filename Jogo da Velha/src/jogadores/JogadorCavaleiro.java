@@ -12,7 +12,7 @@ public JogadorCavaleiro(String nome) {
 public int[] jogar(int[][] matrizTabuleiro) {
    int[] jogadaPrincipal = new int[2];
    jogadaPrincipal[0] = -1; jogadaPrincipal[1] = -1;
-    int jogadaFinal = -1000;
+    int jogadaFinal = -1;
 
    for (int i = 0; i < matrizTabuleiro.length; i++){
         for (int j = 0; j < matrizTabuleiro.length; j++){
@@ -43,7 +43,7 @@ public static int miniMax(int matrizTabuleiro[][], int profundidade, Boolean max
         return 0;
     }
     if (max == true) {
-        int melhor = -1000;
+        int melhor = 0;
         for (int i = 0; i < matrizTabuleiro.length; i++){
             for (int j = 0; j < matrizTabuleiro.length; j++){
                 if (matrizTabuleiro[i][j] == -1) {
@@ -56,7 +56,7 @@ public static int miniMax(int matrizTabuleiro[][], int profundidade, Boolean max
         return melhor;
     }
     else {
-        int melhorMovimento = 1000;
+        int melhorMovimento = 0;
         for (int i = 0; i < matrizTabuleiro.length; i++){
             for (int j = 0; j < matrizTabuleiro.length; j++){
                 if (matrizTabuleiro[i][j] == -1) {
@@ -150,10 +150,5 @@ public static Boolean mover(int matrizTabuleiro[][]) {
                 return true;
             }
     return false;
-}
-
-List<JogadorCavaleiro> proximo() { 
-    List<JogadorCavaleiro> resp = null;
-    return  resp;
 }
 }
